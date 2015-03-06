@@ -1,0 +1,8 @@
+ve
+config.json
+web
+*.pyc
+foo.*
+.ipynb_checkpoints
+*.ipynb
+.DS_Store
