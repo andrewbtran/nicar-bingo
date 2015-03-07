@@ -38,7 +38,7 @@ mysql> create database nicarbingo
 - Generate the API Keys and Access Tokens (Make sure access level is Read, Write)
 
 ### HTML template
-- Download this repo
+- Download this [repo]
 - ```nicar-bingo/website/static/siteart/star.svg``` - SVG for the logo found here
 - ```nicar-bingo/website/static/templates/card.html``` and ```leaderboard.html``` - The markup for player cards and leaderboard
 - ```nicar-bingo/website/static/css/bingo.css``` - Where to adjust the style
@@ -109,3 +109,4 @@ $ nohup python website.py &
 [leaderboard]:http://nicarbingo.com:5000/leaderboard
 [new app]:https://apps.twitter.com
 [spreadsheet]:https://docs.google.com/spreadsheets/d/1Ywr7XJ2QQVSeAvDBAfIo87fUYaVgj0NbOn5d4XkXMmA/edit?usp=sharing
+[repo]:https://github.com/andrewbtran/nicar-bingo/archive/master.zip
