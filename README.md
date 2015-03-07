@@ -88,14 +88,14 @@ Second tab
 ```sh
 $ . ve/bin/activate
 $ cd/website
-$ python daemon.py
+$ python website.py
 ```
 ###Run those beautiful python files (forever)
 ```sh
 $ . ve/bin/activate
 $ nohup python daemon.py &
 $ cd/website
-$ nohup python daemon.py &
+$ nohup python website.py &
 ```
 
 [Daniel McLaughlin]:http://www.twitter.com/mclaughlin
