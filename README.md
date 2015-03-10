@@ -1,20 +1,17 @@
-NICARBingo is an iteration of a Twitter Bingo [experiment] created at a #newshack [hackathon] by [Daniel McLaughlin], [David Putney], and [Andrew Ba Tran]. 
+*Note:* This is NOT live yet. Hold your horses. And tweets.
 
-It's a scavenger hunt bingo game, played exclusively through Twitter. It runs via Python and MySQL. It can be adapted to any theme or event-- the original test was for [@MBTABingo]. 
+IAS-bingo was forked from [NICAR Bingo]:https://github.com/andrewbtran/nicar-bingo/ and adapted for the [Information Architecture Summmit]:http://iasummit.org
 
-To play, tweet at the [@NICARBingo] account and the bot will randomly generate squares and tweet a photo of the card and a unique URL with an interactive version of the card back at you. 
+To play, tweet at [@iasBingo] and you will receive a fresh bingo card with randomly generated squares and a link to the interactive version. 
 
-Each square on the card contains a description of something a NICAR attendee might run across and an identifying hashtag. To claim a square, take a photo of it and tweet it through the Twitter app with the matching hashtag, mentioning [@NICARBingo]. The bot will fill in the square with the photo and send you an updated bingo card. Meanwhile, the leaderboard will keep track of those closest to getting a Bingo or list those who have already reached it and also list the latest dozen square submissions.
+Each bingo card square has a description (and accompanying hashtag) of something an attendee might encounter at the IA Summit.
 
-As we originally [wrote]: 
+To claim a square, take a photo and tweet it with the matching hashtag, mentioning [@iasBingo]. The bot will fill in the square with the photo and send you an updated bingo card. 
 
-> People want to share their photos and have hashtag conversations with their friends and followers. News organizations are being left out.
-
-> News Bingo is a structured way to get user-submitted photos that have been previously categorized. News coverage topics can be turned into a Twitter Bingo relatively easily. Events, Election campaigns, Concerts, etc.
-
-> It's a way to get people to play in their own stream with minimal intrusion from a news site. But if they ever get the urge to learn more, they can follow their own card link to dive deeper into journalism.
+Meanwhile, the leaderboard will keep track of those closest to getting a Bingo, list the latest dozen square submissions and, of course, those who have already reached it.
 
 # Getting started
+(unchanged from original repo)
 
 *Note: [@NICARBingo] runs on an ubuntu server on digitalocean.com*
 
