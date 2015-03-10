@@ -1,6 +1,6 @@
 *Note:* This is NOT live yet. Hold your horses. And tweets.
 
-IAS-bingo was forked from [NICAR Bingo]:https://github.com/andrewbtran/nicar-bingo/ and adapted for the [Information Architecture Summmit]:http://iasummit.org
+IAS-bingo was forked from [NICAR Bingo] and adapted for the [Information Architecture Summmit].
 
 To play, tweet at [@iasBingo] and you will receive a fresh bingo card with randomly generated squares and a link to the interactive version. 
 
@@ -95,6 +95,9 @@ $ cd/website
 $ nohup python website.py &
 ```
 
+[NICAR Bingo]:https://github.com/andrewbtran/nicar-bingo/
+[@iasBingo]:http://twitter.com/iasBingo
+[Information Architecture Summmit]:http://iasummit.org
 [Daniel McLaughlin]:http://www.twitter.com/mclaughlin
 [David Putney]:http://www.twitter.com/putneydm
 [Andrew Ba Tran]:http://www.twitter.com/abtran
