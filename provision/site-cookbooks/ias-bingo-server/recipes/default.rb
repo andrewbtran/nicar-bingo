@@ -37,23 +37,27 @@ end
 
 ## MySQL ##
 
+mysql2_chef_gem 'default' do
+  action :install
+end
+
 mysql_password_config = Chef::EncryptedDataBagItem.load('passwords', 'mysql')
 
 mysql_service 'default' do
   version '5.6'
-  bind_address '0.0.0.0'
+  bind_address '127.0.0.1'
   port '3306'
   initial_root_password mysql_password_config['password']
   action [:create, :start]
 end
 
-# mysql_config 'default' do
-#   source 'mysite.cnf.erb'
-#   notifies :restart, 'mysql_service[default]'
-#   action :create
-# end
+mysql_config 'default' do
+  source 'ias-bingo-server.cnf.erb'
+  notifies :restart, 'mysql_service[default]'
+  action :create
+end
 
-mysql_connection_info {
+mysql_connection_info = {
   :host     => '127.0.0.1',
   :username => 'root',
   :password => mysql_password_config['password']

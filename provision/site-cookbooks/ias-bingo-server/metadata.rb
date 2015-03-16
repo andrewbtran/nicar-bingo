@@ -5,6 +5,7 @@ license           "MIT"
 description       "Installs and configures our web server"
 version           "0.0.1"
 
+depends 'mysql2_chef_gem'
 depends 'mysql'
 depends 'database'
 # depends 'iptables-ng'
