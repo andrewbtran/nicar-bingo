@@ -10,6 +10,19 @@ To claim a square, take a photo and tweet it with the matching hashtag, mentioni
 
 Meanwhile, the leaderboard will keep track of those closest to getting a Bingo, list the latest dozen square submissions and, of course, those who have already reached it.
 
+## Local Development Setup ##
+
+`bin/setup`
+
+Will:
+
+* python using homebrew
+* virtualenv with pip
+* create a virtualenv directory 've' which is in .gitignore
+* activate ve environment
+* install dependencies from `requirements.txt` with pip
+* copy config-sample.json to config.json and open with `$EDITOR`, if set
+
 # Getting started
 (still unchanged from original repo)
 
