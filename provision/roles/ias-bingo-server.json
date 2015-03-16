@@ -1,0 +1,12 @@
+{
+  "name": "ias-bingo-server",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "default_attributes": {
+  },
+  "override_attributes": { },
+  "description": "This is a complete server role.",
+  "run_list": [
+    "recipe[ias-bingo-server]"
+  ]
+}

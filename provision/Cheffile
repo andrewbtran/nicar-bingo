@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'https://supermarket.getchef.com/api/v1'
+
+cookbook 'sudo', '~> 2.7.1'
+cookbook 'ufw', '~> 0.7.4'
+# cookbook 'iptables-ng', '~> 2.2.5'
+cookbook 'python', '~> 1.4.6'
+cookbook 'mysql', '~> 6.0.17'
+cookbook 'nginx', '~> 2.7.4'
+cookbook 'database', '~> 4.0.3'

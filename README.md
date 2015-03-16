@@ -123,3 +123,38 @@ $ nohup python website.py &
 [new app]:https://apps.twitter.com
 [spreadsheet]:https://docs.google.com/spreadsheets/d/1Ywr7XJ2QQVSeAvDBAfIo87fUYaVgj0NbOn5d4XkXMmA/edit?usp=sharing
 [repo]:https://github.com/andrewbtran/nicar-bingo/archive/master.zip
+
+## Provisioning ##
+
+Provisioning uses chef (chef-solo via knife-solo/librarian-chef) which requires ruby. We suggest also using bundler.
+
+### Setup ###
+
+`cd provision`
+`bundle`
+`librarian-chef install`
+
+### Run ###
+
+1. Create your digital ocean account
+2. Create a new ubuntu instance, version 14.04 at the time of this writing
+3. Make sure to setup a key for the root user so you don't need to remember a password
+4. Update `.ssh/config` with a new `Host` entry for your new server. It may look like these:
+
+```
+Host ias-bingo-server
+  HostName <your new ip address>
+  User deploy
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+
+Host ias-bingo-server
+  HostName <your new ip address>
+  User root
+  IdentityFile ~/.ssh/do_id_rsa
+```
+
+5. Set your public keys in the `provision/data_bags/public_keys/keys.json` file
+6. Update the `provision/data_bags/passwords/mysql.json` file to set your own password
+7. `knife solo prepare root@ias-bingo-server`
+8. `knife solo cook root@ias-bingo-server`
