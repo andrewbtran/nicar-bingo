@@ -1,0 +1,22 @@
+#!/bin/bash
+
+brew install python
+
+pip install virtualenv
+
+virtualenv ve
+
+. ve/bin/activate
+pip install -r requirements.txt
+
+if [ ! -f config.json ]; then
+  cp config-sample.json config.json
+
+  if [ ${EDITOR} ]; then
+    ${EDITOR} config.json
+    echo -n "Edit config.json with your mysql and twitter info then press [ENTER] "
+    read
+  else
+    echo "Edit config.json with your mysql and twitter info."
+  fi
+fi

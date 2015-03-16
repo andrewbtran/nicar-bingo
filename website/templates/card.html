@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>@{{screen_name}}'s card - NICARBingo</title>
+	<title>@{{screen_name}}'s IA Summit Bingo Card</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"> 
 
 	<meta charset="utf-8" />
@@ -16,18 +16,17 @@
 
 <div class="instruct_overlay" id="instruct_overlay">
 <ul class="instructions">
+	<h2>How To Play Bingo</h2>
 
-	<h2>instructions</h2>
-
-	<li>Find items described in each of the bingo squares. <span class="hider">Tip: If you're on a mobile device, <i> &#xf00e; </i> to view the contents of a square. </span></li>
+	<li>Find items described in each of the bingo squares. <span class="hider">Tip: Use <i> &#xf00e; </i> to view the contents of a square on smaller devices. </span></li>
 	
-	<li>Shoot a vertical pic of the item and tweet it to @mbtabingo.</li>
+	<li>Take a photo and tweet it to @iasbingo.</li>
 	
-	<li>Include the hashtag in the bingo square.</li>
+	<li>Include the hashtag from the square you're filling.</li>
 	
-	<li>We'll update your card for you.</li>
+	<li>We'll update your card and let you know.</li>
 	
-	<li>Find out how you rank compared with other players <a href="/leaderboard">NICARBingo.com</a> </li>
+	<li>You can keep track of <a href="/leaderboard">your and other players' progress</a>.</li>
 	
 	<div class="close_instruct_button" id="close_ins">Got it. Let's go.</p>
 
@@ -37,27 +36,23 @@
 </div>
 
 <div class="instruct_button" id="instruct">
-
-	how to play
-
+	How To Play
 </div>
 
 <p class="leaderboard_link">
 <a href="/leaderboard">View the leaderboard <i>&nbsp; &#xf178;</i></a>
-
 </p>
 
 <div class="bingo_outer">
-<div class="bingo_container">
-<ul class="bingo_headline">
-	<li>B</li>
-	<li>I</li>
-	<li>N</li>
-	<li>G</li>
-	<li>O</li>
+	<div class="bingo_container">
+	<ul class="bingo_headline">
+		<li>B</li>
+		<li>I</li>
+		<li>N</li>
+		<li>G</li>
+		<li>O</li>
+	</ul>
 
-
-</ul>
 <ul class="bingo_grid">
 {% for square in squares %}
 	<li class="{% if square['image_url'] is not none %}active{% endif %}">
@@ -78,7 +73,6 @@
 
 <p class="close_box"><i>&#xf00d;</i></p>
 
-
 </ul>
 
 
@@ -94,4 +88,3 @@
 <script src="/static/scripts/script.js"></script>
 
 </html>
-
