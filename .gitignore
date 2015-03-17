@@ -6,3 +6,5 @@ foo.*
 .ipynb_checkpoints
 *.ipynb
 .DS_Store
+provision/cookbooks
+provision/tmp
