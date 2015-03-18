@@ -79,16 +79,16 @@ end
 
 ## Python ##
 
-# include_recipe 'python'
+include_recipe 'python'
 
 ## nginx ##
 
-# apt_repository 'nginx-ppa' do
-#   uri 'http://ppa.launchpad.net/nginx/stable/ubuntu'
-#   distribution node['lsb']['codename']
-#   components ['main']
-#   keyserver "keyserver.ubuntu.com"
-#   key 'C300EE8C'
-# end
+apt_repository 'nginx-ppa' do
+  uri 'http://ppa.launchpad.net/nginx/stable/ubuntu'
+  distribution node['lsb']['codename']
+  components ['main']
+  keyserver "keyserver.ubuntu.com"
+  key 'C300EE8C'
+end
 
-# include_recipe 'nginx'
+include_recipe 'nginx'
