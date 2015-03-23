@@ -81,6 +81,72 @@ end
 
 include_recipe 'python'
 
+git "/u/apps/ias-bingo" do
+  repository "git@github.com:livlab/ias-bingo.git"
+  reference "master"
+  action :sync
+end
+
+python_virtualenv '/u/apps/ias-bingo/shared/ve' do
+  owner user_id
+  group user_id
+  action :create
+end
+
+python_pip 'Flask' do
+  version '0.10.1'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'Jinja2' do
+  version '2.7.3'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'MarkupSafe' do
+  version '0.23'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'MySQL-python' do
+  version '1.2.5'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'Werkzeug' do
+  version '0.9.6'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'itsdangerous' do
+  version '0.24'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'python-dateutil' do
+  version '2.2'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'six' do
+  version '1.6.1'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'twitter' do
+  version '1.14.3'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+python_pip 'wsgiref' do
+  version '0.1.2'
+  virtual_env '/u/apps/ias-bingo/shared/ve'
+end
+
+# run bingo.sql into mysql
+
+# figure out how to run website and daemon python scripts
+
 ## nginx ##
 
 apt_repository 'nginx-ppa' do
@@ -92,3 +158,26 @@ apt_repository 'nginx-ppa' do
 end
 
 include_recipe 'nginx'
+
+v = {
+  :app_root => "/u/apps/ias-bingo",
+  :name => "ias-bingo"
+}
+
+nginx_config_path = "/etc/nginx/sites-available/#{v[:name]}"
+
+template nginx_config_path do
+  mode 0644
+  source "nginx.conf.erb"
+  variables v.merge(:server_names => "iasbingo.com")
+  notifies :reload, "service[nginx]"
+end
+
+nginx_site v[:name] do
+  config_path nginx_config_path
+  enable true
+end
+
+nginx_site :default do
+  enable false
+end
