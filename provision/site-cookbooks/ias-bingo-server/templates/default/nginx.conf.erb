@@ -3,7 +3,7 @@ server {
   listen 80;
   server_name <%= @server_names %>;
 
-  root <%= @app_root %>/current/public;
+  root <%= @app_root %>/current/website/static;
 
   access_log  <%= @app_root %>/shared/log/access.log combined;
   error_log   <%= @app_root %>/shared/log/error.log;

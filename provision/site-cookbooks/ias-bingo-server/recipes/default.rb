@@ -63,13 +63,14 @@ end
 
 mysql_connection_info = {
   :host     => '127.0.0.1',
+  :port     => '3306',
   :username => 'root',
   :password => mysql_password_config['password']
 }
 
-database_name = node['ias-bingo-server']['database']['name']
+config_database_name = node['ias-bingo-server']['database']['name']
 
-mysql_database database_name do
+mysql_database config_database_name do
   connection mysql_connection_info
   action :create
 end
@@ -77,21 +78,23 @@ end
 mysql_database_user user_id do
   connection mysql_connection_info
   password mysql_deploy_password
-  database_name database_name
+  database_name config_database_name
   action [:create, :grant]
 end
 
-p bingo_sql_path = File.expand_path('../templates/default/bingo.sql', __FILE__)
+bingo_sql_path = File.expand_path('../../templates/default/bingo.sql', __FILE__)
 
 # run bingo.sql into mysql
-mysql_database 'bingo setup' do
-  connection mysql_connection_info
-  database_name database_name
-  sql { ::File.read(bingo_sql_path) }
-  action :query
-end
+# mysql_database config_database_name do
+#   connection mysql_connection_info.merge(:database => config_database_name)
+#   # database_name config_database_name
+#   sql ::File.read(bingo_sql_path)
+#   action :query
+# end
 
 ## Application ##
+
+include_recipe 'git'
 
 v = {
   :app_root => "/u/apps/ias-bingo",
@@ -110,8 +113,14 @@ directory v[:app_root] + "/shared/" do
   recursive true
 end
 
+directory v[:app_root] + "/shared/log/" do
+  owner "deploy"
+  group "deploy"
+  recursive true
+end
+
 git v[:app_root] + "/current" do
-  repository "git@github.com:livlab/ias-bingo.git"
+  repository "https://github.com/livlab/ias-bingo.git"
   reference "master"
   action :sync
 end
@@ -120,7 +129,7 @@ twitter_config = Chef::EncryptedDataBagItem.load('credentials', 'twitter')
 
 app_config = {
   "mysql"  => {
-    "host" => "localhost",
+    "host" => "127.0.0.1",
     "port" => 3306,
     "user" => user_id,
     "password" => mysql_deploy_password,
@@ -157,52 +166,52 @@ end
 
 python_pip 'Flask' do
   version '0.10.1'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'Jinja2' do
   version '2.7.3'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'MarkupSafe' do
   version '0.23'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'MySQL-python' do
   version '1.2.5'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'Werkzeug' do
   version '0.9.6'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'itsdangerous' do
   version '0.24'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'python-dateutil' do
   version '2.2'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'six' do
   version '1.6.1'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'twitter' do
   version '1.14.3'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 python_pip 'wsgiref' do
   version '0.1.2'
-  virtual_env virtual_env_path
+  virtualenv virtual_env_path
 end
 
 # figure out how to run website and daemon python scripts

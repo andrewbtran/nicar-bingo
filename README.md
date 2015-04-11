@@ -44,8 +44,9 @@ mysql> create database nicarbingo
 ```
 ### Twitter
 - Create a Twitter account
-- Create New App
+- Create New App (https://apps.twitter.com/)
 - Generate the API Keys and Access Tokens (Make sure access level is Read, Write)
+- Make note of the consumer key/secret, and the access token/secret
 
 ### HTML template
 - Download this [repo]
