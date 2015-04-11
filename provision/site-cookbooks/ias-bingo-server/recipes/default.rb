@@ -14,12 +14,15 @@ user user_id do
   home home_dir
 end
 
-# sudo user_id do
-#   group user_id
-#   nopasswd true
+sudo user_id do
+  group user_id
+  nopasswd true
 
-#   commands []
-# end
+  commands [
+    '/usr/sbin/service ias-bingo-server restart',
+    '/usr/sbin/service ias-bingo-daemon restart'
+  ]
+end
 
 directory home_dir+'/.ssh' do
   owner user_id
@@ -42,6 +45,7 @@ mysql2_chef_gem 'default' do
 end
 
 mysql_password_config = Chef::EncryptedDataBagItem.load('passwords', 'mysql')
+mysql_deploy_password = Chef::EncryptedDataBagItem.load('passwords', 'mysql_deploy')["value"]
 
 mysql_service 'default' do
   version '5.6'
@@ -72,7 +76,7 @@ end
 
 mysql_database_user user_id do
   connection mysql_connection_info
-  password ''
+  password mysql_deploy_password
   database_name database_name
   action [:create, :grant]
 end
@@ -80,7 +84,7 @@ end
 p bingo_sql_path = File.expand_path('../templates/default/bingo.sql', __FILE__)
 
 # run bingo.sql into mysql
-mysql_database 'setup' do
+mysql_database 'bingo setup' do
   connection mysql_connection_info
   database_name database_name
   sql { ::File.read(bingo_sql_path) }
@@ -110,6 +114,33 @@ git v[:app_root] + "/current" do
   repository "git@github.com:livlab/ias-bingo.git"
   reference "master"
   action :sync
+end
+
+twitter_config = Chef::EncryptedDataBagItem.load('credentials', 'twitter')
+
+app_config = {
+  "mysql"  => {
+    "host" => "localhost",
+    "port" => 3306,
+    "user" => user_id,
+    "password" => mysql_deploy_password,
+    "database" => "ias_bingo_production"
+  },
+  "twitter"  => {
+    "screen_name" => "iasBingo",
+    "consumer_key" => twitter_config["consumer_key"],
+    "consumer_secret" => twitter_config["consumer_secret"],
+    "access_token" => twitter_config["access_token"],
+    "access_token_secret" => twitter_config["access_token_secret"]
+  }
+}
+
+file v[:app_root] + '/current/config.json' do
+  owner user_id
+  group user_id
+  mode '0700'
+
+  content app_config.to_json
 end
 
 ## Python ##
