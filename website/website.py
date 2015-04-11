@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect
+import os.path
 import json
 import MySQLdb
 import MySQLdb.cursors
@@ -7,7 +8,10 @@ app = Flask(__name__)
 
 # app.debug = True
 
-with open('../config.json') as fh:
+basepath = os.path.dirname(__file__)
+filepath = os.path.abspath(os.path.join(basepath, "..", "config.json"))
+
+with open(filepath, 'r') as fh:
 	config = json.load(fh)
 
 mysql_conn = MySQLdb.connect(
