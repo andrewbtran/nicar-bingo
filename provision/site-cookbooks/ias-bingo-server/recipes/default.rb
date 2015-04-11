@@ -87,17 +87,36 @@ mysql_database 'setup' do
   action :query
 end
 
-## Python ##
+## Application ##
 
-include_recipe 'python'
+v = {
+  :app_root => "/u/apps/ias-bingo",
+  :name => "ias-bingo"
+}
 
-git "/u/apps/ias-bingo" do
+directory v[:app_root] do
+  owner "deploy"
+  group "deploy"
+  recursive true
+end
+
+directory v[:app_root] + "/shared/" do
+  owner "deploy"
+  group "deploy"
+  recursive true
+end
+
+git v[:app_root] + "/current" do
   repository "git@github.com:livlab/ias-bingo.git"
   reference "master"
   action :sync
 end
 
-virtual_env_path = '/u/apps/ias-bingo/shared/ve'
+## Python ##
+
+include_recipe 'python'
+
+virtual_env_path = v[:app_root] + '/shared/ve'
 
 python_virtualenv virtual_env_path do
   owner user_id
@@ -181,11 +200,6 @@ apt_repository 'nginx-ppa' do
 end
 
 include_recipe 'nginx'
-
-v = {
-  :app_root => "/u/apps/ias-bingo",
-  :name => "ias-bingo"
-}
 
 nginx_config_path = "/etc/nginx/sites-available/#{v[:name]}"
 
