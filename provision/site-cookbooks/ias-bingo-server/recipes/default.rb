@@ -77,6 +77,16 @@ mysql_database_user user_id do
   action [:create, :grant]
 end
 
+p bingo_sql_path = File.expand_path('../templates/default/bingo.sql', __FILE__)
+
+# run bingo.sql into mysql
+mysql_database 'setup' do
+  connection mysql_connection_info
+  database_name database_name
+  sql { ::File.read(bingo_sql_path) }
+  action :query
+end
+
 ## Python ##
 
 include_recipe 'python'
@@ -87,7 +97,9 @@ git "/u/apps/ias-bingo" do
   action :sync
 end
 
-python_virtualenv '/u/apps/ias-bingo/shared/ve' do
+virtual_env_path = '/u/apps/ias-bingo/shared/ve'
+
+python_virtualenv virtual_env_path do
   owner user_id
   group user_id
   action :create
@@ -95,57 +107,68 @@ end
 
 python_pip 'Flask' do
   version '0.10.1'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'Jinja2' do
   version '2.7.3'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'MarkupSafe' do
   version '0.23'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'MySQL-python' do
   version '1.2.5'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'Werkzeug' do
   version '0.9.6'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'itsdangerous' do
   version '0.24'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'python-dateutil' do
   version '2.2'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'six' do
   version '1.6.1'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'twitter' do
   version '1.14.3'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
 python_pip 'wsgiref' do
   version '0.1.2'
-  virtual_env '/u/apps/ias-bingo/shared/ve'
+  virtual_env virtual_env_path
 end
 
-# run bingo.sql into mysql
-
 # figure out how to run website and daemon python scripts
+template "/etc/init/ias-bingo-server.conf" do
+  user "root"
+  group "root"
+  source "server.upstart.conf.erb"
+  mode "0644"
+end
+
+template "/etc/init/ias-bingo-daemon.conf" do
+  user "root"
+  group "root"
+  source "daemon.upstart.conf.erb"
+  mode "0644"
+end
 
 ## nginx ##
 
