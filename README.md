@@ -1,6 +1,6 @@
-*Note:* This is NOT live yet. Hold your horses. And tweets.
+## IA Summit Bingo!
 
-IAS-bingo was forked from [NICAR Bingo] and adapted for the [Information Architecture Summmit].
+*Note:* This is NOT live yet. Hold your horses. And tweets.
 
 To play, tweet at [@iasBingo] and you will receive a bingo card with randomly generated squares and a link to the interactive version. 
 
@@ -8,9 +8,11 @@ Each bingo card square has a description (and accompanying hashtag) of something
 
 To claim a square, take a photo and tweet it with the matching hashtag, mentioning [@iasBingo]. The bot will fill in the square with the photo and send you an updated bingo card. Fill out a complete row or column and, bingo, you win!
 
-Meanwhile, the leaderboard will keep track of those closest to getting a Bingo, list the latest dozen square submissions and, of course, those who have already reached it.
+Meanwhile, the [leaderboard] will keep track of those closest to getting a bingo, list the latest dozen square submissions and, of course, those who have already done it!
 
-## Local Development Setup ##
+*IAS-bingo was forked from [NICAR Bingo] and adapted for the [Information Architecture Summmit].*
+
+### Local Development Setup ###
 
 `bin/setup`
 
@@ -109,6 +111,7 @@ $ cd/website
 $ nohup python website.py &
 ```
 
+[leaderboard]:http://iasbingo.com
 [NICAR Bingo]:https://github.com/andrewbtran/nicar-bingo/
 [@iasBingo]:http://twitter.com/iasBingo
 [Information Architecture Summmit]:http://iasummit.org
