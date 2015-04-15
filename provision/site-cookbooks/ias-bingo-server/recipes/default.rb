@@ -258,3 +258,7 @@ end
 nginx_site :default do
   enable false
 end
+
+package 'phantomjs' do
+  not_if 'which phantomjs'
+end

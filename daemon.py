@@ -246,8 +246,7 @@ class InputTweet:
 
 	def sendReply(self,message):
 		img_data = self.user_card.renderCard()
-
-# CHANGE URL HERE
+		# CHANGE URL HERE
 		status = ("@%s %s Your card: http://iasbingo.com/card/%s " % (self.getScreenName(),message,self.getScreenName())).encode('ascii','ignore')
 		status = status.encode('ascii','ignore')
 		id_str = self.t['id_str'].encode('ascii','ignore')
@@ -302,5 +301,3 @@ for t in user_stream:
 
 # print t.help.configuration()
 # print t.account.verify_credentials()
-
-
