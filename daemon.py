@@ -248,7 +248,7 @@ class InputTweet:
 		img_data = self.user_card.renderCard()
 
 # CHANGE URL HERE
-		status = ("@%s %s Your card: http://nicarbingo.com:5000/card/%s " % (self.getScreenName(),message,self.getScreenName())).encode('ascii','ignore')
+		status = ("@%s %s Your card: http://iasbingo.com/card/%s " % (self.getScreenName(),message,self.getScreenName())).encode('ascii','ignore')
 		status = status.encode('ascii','ignore')
 		id_str = self.t['id_str'].encode('ascii','ignore')
 		print status, id_str
