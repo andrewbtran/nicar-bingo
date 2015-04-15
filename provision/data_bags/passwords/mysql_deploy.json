@@ -1,0 +1,9 @@
+{
+  "id": "mysql_deploy",
+  "value": {
+    "encrypted_data": "cuYzDLuumwPOBrFmK9SSp3QFDWkEcykNbvBzEVMxj/kMQQnNr2Lv2iU2RZYq\nqPeM+vArdKVliLDZFqAs5RWdAA==\n",
+    "iv": "oNKIKGyvyTkZcTTnN3c5Fg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

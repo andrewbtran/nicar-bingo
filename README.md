@@ -1,20 +1,32 @@
-NICARBingo is an iteration of a Twitter Bingo [experiment] created at a #newshack [hackathon] by [Daniel McLaughlin], [David Putney], and [Andrew Ba Tran]. 
+## IA Summit Bingo!
 
-It's a scavenger hunt bingo game, played exclusively through Twitter. It runs via Python and MySQL. It can be adapted to any theme or event-- the original test was for [@MBTABingo]. 
+*Note:* This is NOT live yet. Hold your horses. And tweets.
 
-To play, tweet at the [@NICARBingo] account and the bot will randomly generate squares and tweet a photo of the card and a unique URL with an interactive version of the card back at you. 
+To play, tweet at [@iasBingo] and you will receive a bingo card with randomly generated squares and a link to the interactive version. 
 
-Each square on the card contains a description of something a NICAR attendee might run across and an identifying hashtag. To claim a square, take a photo of it and tweet it through the Twitter app with the matching hashtag, mentioning [@NICARBingo]. The bot will fill in the square with the photo and send you an updated bingo card. Meanwhile, the leaderboard will keep track of those closest to getting a Bingo or list those who have already reached it and also list the latest dozen square submissions.
+Each bingo card square has a description (and accompanying hashtag) of something an attendee might encounter at the IA Summit.
 
-As we originally [wrote]: 
+To claim a square, take a photo and tweet it with the matching hashtag, mentioning [@iasBingo]. The bot will fill in the square with the photo and send you an updated bingo card. Fill out a complete row or column and, bingo, you win!
 
-> People want to share their photos and have hashtag conversations with their friends and followers. News organizations are being left out.
+Meanwhile, the [leaderboard] will keep track of those closest to getting a bingo, list the latest dozen square submissions and, of course, those who have already done it!
 
-> News Bingo is a structured way to get user-submitted photos that have been previously categorized. News coverage topics can be turned into a Twitter Bingo relatively easily. Events, Election campaigns, Concerts, etc.
+*IAS-bingo was forked from [NICAR Bingo] and adapted for the [Information Architecture Summmit].*
 
-> It's a way to get people to play in their own stream with minimal intrusion from a news site. But if they ever get the urge to learn more, they can follow their own card link to dive deeper into journalism.
+### Local Development Setup ###
+
+`bin/setup`
+
+Will:
+
+* python using homebrew
+* virtualenv with pip
+* create a virtualenv directory 've' which is in .gitignore
+* activate ve environment
+* install dependencies from `requirements.txt` with pip
+* copy config-sample.json to config.json and open with `$EDITOR`, if set
 
 # Getting started
+(still unchanged from original repo)
 
 *Note: [@NICARBingo] runs on an ubuntu server on digitalocean.com*
 
@@ -34,8 +46,9 @@ mysql> create database nicarbingo
 ```
 ### Twitter
 - Create a Twitter account
-- Create New App
+- Create New App (https://apps.twitter.com/)
 - Generate the API Keys and Access Tokens (Make sure access level is Read, Write)
+- Make note of the consumer key/secret, and the access token/secret
 
 ### HTML template
 - Download this [repo]
@@ -98,6 +111,10 @@ $ cd/website
 $ nohup python website.py &
 ```
 
+[leaderboard]:http://iasbingo.com
+[NICAR Bingo]:https://github.com/andrewbtran/nicar-bingo/
+[@iasBingo]:http://twitter.com/iasBingo
+[Information Architecture Summmit]:http://iasummit.org
 [Daniel McLaughlin]:http://www.twitter.com/mclaughlin
 [David Putney]:http://www.twitter.com/putneydm
 [Andrew Ba Tran]:http://www.twitter.com/abtran
@@ -110,3 +127,38 @@ $ nohup python website.py &
 [new app]:https://apps.twitter.com
 [spreadsheet]:https://docs.google.com/spreadsheets/d/1Ywr7XJ2QQVSeAvDBAfIo87fUYaVgj0NbOn5d4XkXMmA/edit?usp=sharing
 [repo]:https://github.com/andrewbtran/nicar-bingo/archive/master.zip
+
+## Provisioning ##
+
+Provisioning uses chef (chef-solo via knife-solo/librarian-chef) which requires ruby. We suggest also using bundler.
+
+### Setup ###
+
+`cd provision`
+`bundle`
+`librarian-chef install`
+
+### Run ###
+
+1. Create your digital ocean account
+2. Create a new ubuntu instance, version 14.04 at the time of this writing
+3. Make sure to setup a key for the root user so you don't need to remember a password
+4. Update `.ssh/config` with a new `Host` entry for your new server. It may look like these:
+
+```
+Host ias-bingo-server
+  HostName <your new ip address>
+  User deploy
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+
+Host ias-bingo-server
+  HostName <your new ip address>
+  User root
+  IdentityFile ~/.ssh/do_id_rsa
+```
+
+5. Set your public keys in the `provision/data_bags/public_keys/keys.json` file
+6. Update the `provision/data_bags/passwords/mysql.json` file to set your own password
+7. `knife solo prepare root@ias-bingo-server`
+8. `knife solo cook root@ias-bingo-server`

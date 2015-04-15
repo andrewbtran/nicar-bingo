@@ -1,0 +1,29 @@
+# /etc/init/ias-bingo-server.conf
+description "ias-bingo server process"
+
+# change to the user you want to run this ruby script as
+setuid deploy
+setgid deploy
+
+# This starts upon bootup and stops on shutdown
+# check runlevel of running system with `runlevel` command
+start on runlevel [2345]
+stop on runlevel [06]
+
+# controls for respawning this process if it dies
+respawn # yes, we want this to respawn
+respawn limit 1 30 # only try 1x to respawn in 30 seconds
+
+chdir /u/apps/ias-bingo/current
+
+script
+exec /bin/bash -l <<EOS
+  export HOME="$(eval echo ~$(id -un))"
+
+  . /u/apps/ias-bingo/shared/ve/bin/activate
+
+  logger -t ias-bingo-server "Starting server: $app"
+
+  exec python website/website.py
+EOS
+end script
