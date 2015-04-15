@@ -552,10 +552,10 @@ leaderboard page
   padding-bottom: 20px;
   border-bottom: 1px solid #d0d0d0; }
   .header .logo {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 119px;
     float: left;
-    background-image: url("../siteart/nicarbingologo.png");
+    background-image: url("../siteart/iaslogo.png");
     background-size: 100%;
     margin: 0 8px 0 0; }
     @media screen and (min-width: 34.375em) {
